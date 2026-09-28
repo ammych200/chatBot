@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand">
+                <div class="brand-logo">🤖</div>
+                <span class="brand-name">AI Assistant</span>
+            </div>
+            <button class="icon-btn collapse-btn" id="collapse-btn" title="Collapse sidebar">☰</button>
+        </div>
+
+        <button class="new-chat-btn" id="new-chat-btn">
+            <span>＋</span> New Chat
+        </button>
+
+        <div class="sidebar-section">
+            <div class="section-title">🕘 Recent Chats</div>
+            <div class="chat-list" id="chat-list"></div>
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="side-btn" id="settings-btn">⚙️ Settings</button>
+            <button class="side-btn" id="theme-toggle-side">🌙 Dark Mode</button>
+            <button class="side-btn danger" id="clear-all-btn">🗑️ Clear All</button>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN CHAT ================= -->
+    <main class="chat-main">
+        <!-- Header -->
+        <header class="chat-header">
+            <div class="header-left">
+                <button class="icon-btn menu-btn" id="menu-btn" title="Menu">☰</button>
+                <div class="avatar">🤖</div>
+                <div>
+                    <h2>AI Assistant</h2>
+                    <span class="status" id="status">Checking...</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <select id="lang-select" class="lang-select" title="Language">
+                    <option value="auto">🌐 Auto</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="ur">🇵🇰 Urdu</option>
+                    <option value="ar">🇸🇦 Arabic</option>
+                    <option value="hi">🇮🇳 Hindi</option>
+                    <option value="es">🇪🇸 Spanish</option>
+                    <option value="fr">🇫🇷 French</option>
+                    <option value="zh">🇨🇳 Chinese</option>
+                    <option value="de">🇩🇪 German</option>
+                </select>
+                <button class="icon-btn" id="theme-toggle" title="Toggle theme">🌙</button>
+            </div>
+        </header>
+
+        <!-- Chat area -->
+        <div class="chat-box" id="chat-box">
+            <!-- Welcome screen -->
+            <div class="welcome" id="welcome">
+                <div class="welcome-emoji">👋</div>
+                <h1>Hello!</h1>
+                <p>How can I help you today?</p>
+
+                <div class="suggestions">
+                    <button class="suggestion-card" data-prompt="Ask me anything">
+                        <span class="sugg-icon">💡</span>
+                        <span class="sugg-title">Ask me anything</span>
+                    </button>
+                    <button class="suggestion-card" data-prompt="Help me with coding">
+                        <span class="sugg-icon">💻</span>
+                        <span class="sugg-title">Help with coding</span>
+                    </button>
+                    <button class="suggestion-card" data-prompt="Write something for me">
+                        <span class="sugg-icon">✍️</span>
+                        <span class="sugg-title">Write something</span>
+                    </button>
+                    <button class="suggestion-card" data-prompt="Explain a topic to me">
+                        <span class="sugg-icon">📚</span>
+                        <span class="sugg-title">Explain a topic</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input area -->
+        <div class="input-wrapper">
+            <!-- Attachment preview -->
+            <div class="attachment-preview" id="attachment-preview"></div>
+
+            <div class="chat-input">
+                <button class="icon-btn round" id="attach-btn" title="Attach file">📎</button>
+                <input type="file" id="file-input" hidden />
+
+                <textarea
+                    id="user-input"
+                    placeholder="Message your AI..."
+                    rows="1"
+                    autocomplete="off"
+                ></textarea>
+
+                <button class="icon-btn round" id="mic-btn" title="Voice input">🎤</button>
+                <button class="send-btn" id="send-btn" title="Send">➤</button>
+            </div>
+            <div class="input-hint">Enter to send • Shift + Enter for new line</div>
+        </div>
+    </main>
+
+    <!-- ================= SETTINGS PANEL ================= -->
+    <div class="settings-overlay" id="settings-overlay">
+        <div class="settings-panel">
+            <div class="settings-header">
+                <h2>⚙️ Settings</h2>
+                <button class="icon-btn" id="settings-close">✕</button>
+            </div>
+
+            <div class="settings-body">
+                <div class="setting-item">
+                    <label>Language</label>
+                    <select id="settings-lang">
+                        <option value="auto">🌐 Auto Detect</option>
+                        <option value="en">🇬🇧 English</option>
+                        <option value="ur">🇵🇰 Urdu</option>
+                        <option value="ar">🇸🇦 Arabic</option>
+                        <option value="hi">🇮🇳 Hindi</option>
+                        <option value="es">🇪🇸 Spanish</option>
+                        <option value="fr">🇫🇷 French</option>
+                        <option value="zh">🇨🇳 Chinese</option>
+                        <option value="de">🇩🇪 German</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label>Theme</label>
+                    <select id="settings-theme">
+                        <option value="light">☀️ Light</option>
+                        <option value="dark">🌙 Dark</option>
+                    </select>
+                </div>
+
+                <div class="setting-item toggle-row">
+                    <label>Auto Read Aloud (TTS)</label>
+                    <input type="checkbox" id="settings-tts" />
+                </div>
+
+                <div class="setting-item">
+                    <label>Voice Language</label>
+                    <select id="settings-voice-lang">
+                        <option value="en-US">English (US)</option>
+                        <option value="ur-PK">Urdu</option>
+                        <option value="hi-IN">Hindi</option>
+                        <option value="ar-SA">Arabic</option>
+                        <option value="es-ES">Spanish</option>
+                        <option value="fr-FR">French</option>
+                        <option value="zh-CN">Chinese</option>
+                        <option value="de-DE">German</option>
+                    </select>
+                </div>
+
+                <button class="danger-btn" id="settings-clear">🗑️ Clear All Chat History</button>
+
+                <div class="about">
+                    <h3>About AI Assistant</h3>
+                    <p>Modern multilingual AI chatbot powered by Groq.</p>
+                    <p class="muted">Version 1.0.0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
